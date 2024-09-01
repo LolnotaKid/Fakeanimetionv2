@@ -1,0 +1,149 @@
+local player = game.Players.LocalPlayer
+local coreGui = game:GetService("CoreGui")
+local tweenService = game:GetService("TweenService")
+
+local loadingGui = Instance.new("ScreenGui", coreGui)
+loadingGui.Name = "LoadingGui"
+
+local loadingText = Instance.new("TextLabel", loadingGui)
+loadingText.Size = UDim2.new(0.4, 0, 0.1, 0)
+loadingText.Position = UDim2.new(0.3, 0, 0.45, 0)
+loadingText.BackgroundTransparency = 1
+loadingText.Text = ""
+loadingText.TextColor3 = Color3.fromRGB(255, 255, 255)
+loadingText.TextScaled = true
+loadingText.Font = Enum.Font.SourceSansBold
+
+local authorText = Instance.new("TextLabel", loadingGui)
+authorText.Size = UDim2.new(0.4, 0, 0.05, 0)
+authorText.Position = UDim2.new(0.3, 0, 0.55, 0)
+authorText.BackgroundTransparency = 1
+authorText.Text = "Made by NotRealNull and Not14"
+authorText.TextColor3 = Color3.fromRGB(255, 255, 255)
+authorText.TextTransparency = 1
+authorText.TextScaled = true
+authorText.Font = Enum.Font.SourceSans
+
+-- Function to type out the loading text
+coroutine.wrap(function()
+    for i = 1, #("Veux Hub V2") do
+        loadingText.Text = string.sub("Veux Hub V2", 1, i)
+        wait(0.1)
+    end
+    wait(1)
+
+    -- Fade in the author text
+    local fadeInAuthor = tweenService:Create(authorText, TweenInfo.new(2, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {TextTransparency = 0})
+    fadeInAuthor:Play()
+
+    wait(5)
+
+    -- Fade out both loading and author texts
+    local fadeOutLoading = tweenService:Create(loadingText, TweenInfo.new(2, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {TextTransparency = 1})
+    local fadeOutAuthor = tweenService:Create(authorText, TweenInfo.new(2, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {TextTransparency = 1})
+
+    fadeOutLoading:Play()
+    fadeOutAuthor:Play()
+
+    fadeOutLoading.Completed:Connect(function()
+        loadingGui:Destroy() -- Destroy the loading screen after animations are complete
+    end)
+end)()
+
+wait(8)
+
+-- Load the Discord UI Library
+local DiscordLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/discord"))()
+
+-- Create a new window
+local win = DiscordLib:Window("Fake Animation | Veux Hub V2")
+
+-- Create a server (tab)
+local serv = win:Server("Preview", "")
+
+-- Create channels
+local btns = serv:Channel("yuji")
+local btns2 = serv:Channel("megumi")
+local btns3 = serv:Channel("Gojo")
+
+-- Function to create buttons for each animation
+local function createButton(channel, name, animationId)
+    channel:Button(name, function()
+        local Players = game:GetService("Players")
+        local player = Players.LocalPlayer
+
+        local animation = Instance.new("Animation")
+        animation.AnimationId = "rbxassetid://" .. animationId
+
+        local function playAnimation(character)
+            local humanoid = character:FindFirstChildOfClass("Humanoid")
+            if humanoid then
+                local animator = humanoid:FindFirstChildOfClass("Animator") or Instance.new("Animator", humanoid)
+                local animationTrack = animator:LoadAnimation(animation)
+                animationTrack:Play()
+            end
+        end
+
+        if player.Character then
+            playAnimation(player.Character)
+        else
+            player.CharacterAdded:Connect(playAnimation)
+        end
+    end)
+end
+
+-- Function to add useless buttons
+local function addUselessButtons(channel, count)
+    for i = 1, count do
+        channel:Button("Useless Button " .. i, function() end)
+    end
+end
+
+-- Create buttons for each animation in the "yuji" channel
+createButton(btns, "cursed Strike|victim", "16872047350")
+createButton(btns, "Crushing Blow", "15432272268")
+createButton(btns, "Cursed strike", "15434683426")
+createButton(btns, "Maji Kick", "14841505475")
+createButton(btns, "Ultimate", "16663212523")
+createButton(btns, "DomainWarn", "15488163846")
+createButton(btns, "Flame Arrow", "15934318270")
+createButton(btns, "Rush", "15984964491")
+createButton(btns, "Rush Hit", "16827230331")
+createButton(btns, "Cleave", "16638412783")
+createButton(btns, "MalevolentShrine", "15489784732")
+createButton(btns, "Dismantle", "15292037778")
+createButton(btns, "DivergentFist", "14771588355")
+createButton(btns, "SlaughterDemon", "16735568688")
+
+-- Create buttons for each animation in the "megumi" channel
+createButton(btns2, "shadow Swarm Run", "17588190031")
+createButton(btns2, "shadowSwarm 2", "17588171119")
+createButton(btns2, "shadow Swarm Hit", "17588173341")
+createButton(btns2, "Mahoraga Summon", "17551479073")
+createButton(btns2, "Mahoraga Use", "17549011110")
+createButton(btns2, "Divine Dog", "17396322509")
+createButton(btns2, "Domain Warn", "17284846608")
+createButton(btns2, "shadow Swarm", "17588165564")
+createButton(btns2, "ultimate", "17243305851")
+createButton(btns2, "Toad", "17263623586")
+createButton(btns2, "Nue", "17324258817")
+createButton(btns2, "shadow", "17110997686")
+
+-- Create buttons for each animation in the "Gojo" channel
+createButton(btns3, "Lapis Blue", "14702384584")
+createButton(btns3, "Reversal Red", "14135387764")
+createButton(btns3, "Barrage", "15042750274")
+createButton(btns3, "Twinfold kick", "16842286124")
+createButton(btns3, "Teleport", "16028730554")
+createButton(btns3, "Ultimate", "14737876270")
+createButton(btns3, "DomainWarn", "15170309180")
+createButton(btns3, "Blue Max", "15290922156")
+createButton(btns3, "Red Max", "17283946287")
+createButton(btns3, "Purple", "14351933730")
+createButton(btns3, "Infinite Void", "14801008075")
+
+-- Add useless buttons to each channel
+addUselessButtons(btns, 4)  -- Adjust the number of useless buttons as needed
+addUselessButtons(btns2, 4)
+addUselessButtons(btns3, 4)
+
